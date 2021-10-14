@@ -1,0 +1,28 @@
+version: "3.7"
+
+services:
+  mysql:
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./docker_data/mysql:/var/lib/mysql
+    environment:
+      #REMOTE
+      MYSQL_ROOT_PASSWORD: "AgileSkill2021"
+      #LOCAL
+      #MYSQL_ROOT_PASSWORD: "root"
+
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./docker_data/mongo:/data/db
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./docker_data/redis:/data
