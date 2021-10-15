@@ -3,6 +3,8 @@ package com.agileskill.spring.amazon.clone.backend.controller.rest;
 import com.agileskill.spring.amazon.clone.backend.model.Product;
 import com.agileskill.spring.amazon.clone.backend.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,8 +33,14 @@ public class RestAPI {
         return productService.retrieveCartProducts();
     }
 
-    @PutMapping("/product/cart/{code}")
+    @PostMapping("/product/cart/{code}")
     public void rmFromCart(@PathVariable Integer code) {
         productService.rmProductFromCart(code);
+    }
+
+
+    @RequestMapping(value = "/**/**",method = RequestMethod.OPTIONS)
+    public ResponseEntity handle() {
+        return new ResponseEntity(HttpStatus.OK);
     }
 }
