@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -24,18 +25,18 @@ public class RestAPI {
     }
 
     @PostMapping("/product/cart")
-    public void addToCart(@RequestBody Map<String, Object> body) {
-        productService.addProductToCart(Integer.parseInt(String.valueOf(body.get("code"))));
+    public void addToCart(@RequestBody Map<String, Object> body, Principal principal) {
+        productService.addProductToCart(Integer.parseInt(String.valueOf(body.get("code"))), principal.getName());
     }
 
     @GetMapping("/product/cart")
-    public List<Product> retrieveCartProducts() {
-        return productService.retrieveCartProducts();
+    public List<Product> retrieveCartProducts(Principal principal) {
+        return productService.retrieveCartProducts(principal.getName());
     }
 
     @PostMapping("/product/cart/{code}")
-    public void rmFromCart(@PathVariable Integer code) {
-        productService.rmProductFromCart(code);
+    public void rmFromCart(@PathVariable Integer code, Principal principal) {
+        productService.rmProductFromCart(code, principal.getName());
     }
 
 

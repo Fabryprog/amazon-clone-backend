@@ -7,9 +7,9 @@ import java.util.List;
 public interface ProductService {
     public List<Product> retrieveAllProduct();
 
-    public void addProductToCart(Integer productCode);
+    public void addProductToCart(Integer productCode, String username);
 
-    public void rmProductFromCart(Integer productCode);
+    public void rmProductFromCart(Integer productCode, String username);
 
-    public List<Product> retrieveCartProducts();
+    public List<Product> retrieveCartProducts(String username);
 }

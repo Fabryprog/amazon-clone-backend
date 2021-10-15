@@ -23,16 +23,14 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findAll();
     }
 
-    public void addProductToCart(Integer productCode) {
+    public void addProductToCart(Integer productCode, String username) {
         Product product = productRepository.findProductByCode(productCode);
 
-        //TODO username
-        Optional<ShoppingCart> opt = shoppingCartRepository.findById("username");
+        Optional<ShoppingCart> opt = shoppingCartRepository.findById(username);
 
         List<Product> products = new LinkedList<>();
 
         if(opt.isPresent()) {
-            //TODO username
             products = (opt.get().getProduct() == null) ? new LinkedList<>() : opt.get().getProduct();
 
             //TODO quantity
@@ -50,37 +48,33 @@ public class ProductServiceImpl implements ProductService {
             products.add(product);
         }
 
-        shoppingCartRepository.save(new ShoppingCart("username", products));
+        shoppingCartRepository.save(new ShoppingCart(username, products));
 
     }
 
-    public void rmProductFromCart(Integer productCode) {
+    public void rmProductFromCart(Integer productCode, String username) {
         Product product = productRepository.findProductByCode(productCode);
 
-        //TODO username
-        Optional<ShoppingCart> opt = shoppingCartRepository.findById("username");
+        Optional<ShoppingCart> opt = shoppingCartRepository.findById(username);
 
         if(opt.isPresent()) {
-            //TODO username
-
             List<Product> products = opt.get().getProduct();
 
             //TODO quantity
             for(Product p : products) {
                 if(p.getCode().equals(product.getCode())) {
                     products.remove(p);
-                    shoppingCartRepository.save(new ShoppingCart("username", products));
+                    shoppingCartRepository.save(new ShoppingCart(username, products));
                     break;
                 }
             }
         }
     }
 
-    public List<Product> retrieveCartProducts() {
-        //TODO username
-        Optional<ShoppingCart> opt = shoppingCartRepository.findById("username");
+    public List<Product> retrieveCartProducts(String username) {
+        Optional<ShoppingCart> opt = shoppingCartRepository.findById(username);
 
-        return opt.isPresent() ? shoppingCartRepository.findById("username").get().getProduct() : Collections.EMPTY_LIST;
+        return opt.isPresent() ? shoppingCartRepository.findById(username).get().getProduct() : Collections.EMPTY_LIST;
     }
 
 }
