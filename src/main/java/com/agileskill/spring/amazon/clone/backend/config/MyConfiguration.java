@@ -13,4 +13,5 @@ public class MyConfiguration  implements WebMvcConfigurer {
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS", "PATCH")
                 .allowCredentials(true);
     }
+
 }

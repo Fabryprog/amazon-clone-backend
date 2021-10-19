@@ -35,12 +35,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().authorizeRequests()
                 .antMatchers(HttpMethod.POST, jwtLoginPage).permitAll()
                 .antMatchers(HttpMethod.GET, "/api/v1/product").permitAll()
+                .antMatchers(HttpMethod.GET, "/**", "/static/**", "manifest.json").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new AuthenticationFilter(authenticationManager(), jwtExpirationTime, jwtKey))
