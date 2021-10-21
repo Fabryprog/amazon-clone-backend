@@ -40,7 +40,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable().authorizeRequests()
                 .antMatchers(HttpMethod.POST, jwtLoginPage).permitAll()
                 .antMatchers(HttpMethod.GET, "/api/v1/product").permitAll()
-                .antMatchers(HttpMethod.GET, "/**", "/static/**", "manifest.json").permitAll()
+                .antMatchers(HttpMethod.GET, "/**/**", "manifest.json").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new AuthenticationFilter(authenticationManager(), jwtExpirationTime, jwtKey))

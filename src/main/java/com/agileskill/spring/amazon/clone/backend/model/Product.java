@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 
-@Document(collection = "products")
+@Document(collection = "product_react")
 public class Product implements Serializable {
     @JsonProperty
     private ObjectId _id;
